@@ -18,40 +18,101 @@ from datetime import timedelta
 
 load_dotenv()
 
+
+
+# Internationalization
+# https://docs.djangoproject.com/en/5.1/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_TZ = True
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = 'django-insecure--5-h!$mbee(fkmv_q)h33_)jca*ndx4^lkr%u)^xl8ay8kdj(8'
 
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.1/howto/static-files/
+
+STATIC_URL = 'static/'
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
+CORS_ALLOW_ALL_ORIGINS = True
+
+ROOT_URLCONF = 'salama.urls'
+
+WSGI_APPLICATION = 'salama.wsgi.application'
+
+
+
+
+ALLOWED_HOSTS = ['*']
+
 
 # Application definition
-
-INSTALLED_APPS = [
+DJANGO_APPS =[
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+PROJECT_APPS = [
+    'apps.users',
+    'apps.departments',
+]
+
+THIRD_PARTY_APPS = [
     'drf_spectacular',
     'rest_framework',
     'rest_framework_simplejwt',
-    'apps.users',
-    'apps.departments',
     'corsheaders',
 ]
+
+
+INSTALLED_APPS = [
+    *DJANGO_APPS, *PROJECT_APPS, THIRD_PARTY_APPS    
+]
+
+
+# Django middleware
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -65,9 +126,9 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
 
-ROOT_URLCONF = 'salama.urls'
+
+# Django Templates
 
 TEMPLATES = [
     {
@@ -84,24 +145,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'salama.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB-NAME'),
-        'PASSWORD': os.environ.get('DB-PASS'),
-        'USER': os.environ.get('DB-USER'),
-        'HOST': os.environ.get('DB-HOST'),
-        'PORT': os.environ.get('DB-PORT'),
-    }
-}
-
 
 
 # Password validation
@@ -123,27 +166,24 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# Database
+# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-TIME_ZONE = 'UTC'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB-NAME'),
+        'PASSWORD': os.environ.get('DB-PASS'),
+        'USER': os.environ.get('DB-USER'),
+        'HOST': os.environ.get('DB-HOST'),
+        'PORT': os.environ.get('DB-PORT'),
+    }
+}
 
-USE_I18N = True
-
-USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Django Rest Framework Default Classes
 
 REST_FRAMEWORK={
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -156,6 +196,10 @@ REST_FRAMEWORK={
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+
+
+# Django Rest Framework Simple JWT Settings
+
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Salama',
     'DESCRIPTION': 'Salama APIs',
@@ -163,8 +207,9 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
-MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+
+
+# Django Rest Framework Simple JWT Settings
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=365),

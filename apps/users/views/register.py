@@ -3,7 +3,6 @@ from drf_spectacular.views import extend_schema
 from ..models import CustomUser
 from rest_framework.response import Response
 from ..serializers.custom_user_serializers import CustomUserSerializers
-from django.contrib.auth.hashers import check_password
 from django.urls import URLPattern
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.permissions import IsAuthenticated

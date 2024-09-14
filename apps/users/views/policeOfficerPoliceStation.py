@@ -45,4 +45,17 @@ class OfficerPoliceStaionView(APIView):
                     'success': False
                 })
     
+
+class Unassign(APIView):
+    @extend_schema(
+        tags=['Police Station Assigning']
+    )
+    def delete(self, request):
+        id = request.data.get('id')
+        user=PoliceOfficerPoliceStaion.objects.filter(user=id)
+        user.delete()
+        return Response({
+                'message': 'Data Deleted',
+                'success': True
+            })
     

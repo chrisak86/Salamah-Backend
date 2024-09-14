@@ -35,7 +35,7 @@ class PoliceStationGetView(APIView):
 
     def get(self, request):
         polic_station=PoliceStation.objects.all().order_by('id')
-        print(polic_station)
+        
         serializer=PoliceStationSerializer(polic_station, many=True)
         return Response({
                 'message': "Police station list",

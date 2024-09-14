@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views.register import *
-from .views.policeOfficerPoliceStation import OfficerPoliceStaionView
+from .views.policeOfficerPoliceStation import OfficerPoliceStaionView, Unassign
 from .views.ticketView import *
 
 
@@ -24,6 +24,7 @@ other_urls=[
     path('update-ticket/', PatchTicket.as_view(), name='update-ticket'),
     path('all-ticket/', AllTickets.as_view(), name='all-ticket'),
     path('pending-ticket/', FalseTicketsView.as_view(), name='pending-ticket'),
+    path('delete-police-station/', Unassign.as_view(), name='delete-police-station')
 
 ]
 

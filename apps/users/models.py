@@ -35,7 +35,7 @@ class CustomUser(AbstractUser):
     
 class PoliceOfficerPoliceStaion(models.Model):
     user=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    police_station=models.ForeignKey(PoliceStation, on_delete=models.CASCADE)
+    police_station=models.ForeignKey(PoliceStation, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         strg=str(self.id)

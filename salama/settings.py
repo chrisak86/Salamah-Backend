@@ -173,13 +173,20 @@ AUTH_PASSWORD_VALIDATORS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB-NAME'),
-        'PASSWORD': os.environ.get('DB-PASS'),
-        'USER': os.environ.get('DB-USER'),
-        'HOST': os.environ.get('DB-HOST'),
-        'PORT': os.environ.get('DB-PORT'),
-    }
+        'NAME': 'dbnewsalamah',
+        'USER': 'snadmin',
+        'PASSWORD': 'Salamah@2024',
+        'HOST': 'db-salamah.cjiwk802ulda.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
+        }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 

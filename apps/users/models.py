@@ -67,6 +67,8 @@ class Ticket(models.Model):
     dest_long=models.FloatField()
     completed=models.BooleanField(default=False)
     type_choice=models.CharField(max_length=50, choices=TYPE_CHOICES)
+    cancel = models.BooleanField(null=True, blank=True)
+    reason = models.CharField(max_length=2000, null=True, blank=True)
     
 
     

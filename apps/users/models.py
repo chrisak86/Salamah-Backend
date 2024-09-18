@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from .custom_managers.custom_user_manager import CustomUserManager
 from ..departments.models import PoliceStation,Hospital,FireStation
 from django.utils import timezone
+import pytz
 
 class CustomUser(AbstractUser):
     GENDER_CHOICES = (
@@ -80,4 +81,12 @@ class ModelLogs(models.Model):
     response = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    def save(self, *args, **kwargs):
+        gmt_plus_3 = pytz.timezone('Europe/Istanbul')
+        now = timezone.now()
+        if not self.pk:  # Only set created_at on creation
+            self.created_at = now.astimezone(gmt_plus_3)
+        self.updated_at = now.astimezone(gmt_plus_3)
+        super().save(*args, **kwargs)
     

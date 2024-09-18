@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .custom_managers.custom_user_manager import CustomUserManager
 from ..departments.models import PoliceStation,Hospital,FireStation
+from django.utils import timezone
 
 class CustomUser(AbstractUser):
     GENDER_CHOICES = (
@@ -71,4 +72,12 @@ class Ticket(models.Model):
     reason = models.CharField(max_length=2000, null=True, blank=True)
     
 
+
+class ModelLogs(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    lat = models.FloatField()
+    lng = models.FloatField()
+    response = models.JSONField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     

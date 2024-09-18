@@ -1,5 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from apps.users.serializers.custom_user_serializers import ModelLogsSerializer
 from ..serializers.ticketSerializer import TicketSerializer
 from ..models import PoliceOfficerPoliceStaion, Ticket
 from drf_spectacular.views import extend_schema
@@ -182,4 +184,28 @@ class FalseTicketsView(APIView):
             'message': 'False Tickets',
             'data': serializer.data,
             'success': True
+        })
+    
+
+class CreateModelLogView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ModelLogsSerializer
+
+    def post(self, request):
+        data = request.data.copy()
+        data['user'] = request.user.id
+        
+        serializer = ModelLogsSerializer(data=data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "data": serializer.data,
+                "message": "Log created successfully",
+                "success": True
+            })
+        return Response({
+            "data": None,
+            "message": serializer.errors,
+            "success": False
         })

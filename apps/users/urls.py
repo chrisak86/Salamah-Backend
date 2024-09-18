@@ -13,6 +13,7 @@ auth_urls = [
     path('update-user/', UserPatchView.as_view(), name='update-user'),
     path('police-officer/', PoliceOfficerView.as_view(), name='police-officer'),
     path('get-user/', GetUserAPIView.as_view(), name='get-user'),
+    path('model-log/', CreateModelLogView.as_view(), name='model-log'),
 
 ]
 

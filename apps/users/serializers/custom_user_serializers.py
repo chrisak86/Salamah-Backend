@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import CustomUser, PoliceOfficerPoliceStaion
+from ..models import CustomUser, ModelLogs, PoliceOfficerPoliceStaion
 
 
 class CustomUserSerializers(serializers.ModelSerializer):
@@ -34,4 +34,11 @@ class CustomUserSerializers(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+    
+
+class ModelLogsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ModelLogs
+        fields = "__all__"
+
     

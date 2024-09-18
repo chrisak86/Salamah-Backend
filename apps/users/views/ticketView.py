@@ -36,7 +36,8 @@ class TicketView(APIView):
             'dest_lat': request_data.get('dest_lat'),
             'dest_long': request_data.get('dest_long'),
             'completed': request_data.get('completed'),
-            'type_choice': request_data.get('type_choice'),           
+            'type_choice': request_data.get('type_choice'),
+            'gender': request_data.get('gender'),
         }
         serializer=TicketSerializer(data=data)
         if serializer.is_valid():

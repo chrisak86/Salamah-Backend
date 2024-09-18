@@ -71,6 +71,7 @@ class Ticket(models.Model):
     type_choice=models.CharField(max_length=50, choices=TYPE_CHOICES)
     cancel = models.BooleanField(null=True, blank=True)
     reason = models.CharField(max_length=2000, null=True, blank=True)
+    gender = models.CharField(max_length=10, null=True, blank=True)
     
 
 
@@ -81,7 +82,7 @@ class ModelLogs(models.Model):
     response = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     def save(self, *args, **kwargs):
         gmt_plus_3 = pytz.timezone('Europe/Istanbul')
         now = timezone.now()

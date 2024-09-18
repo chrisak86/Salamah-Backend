@@ -84,12 +84,19 @@ class ModelLogs(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
+        # Define the desired timezone
         local_timezone = pytz.timezone('Europe/Istanbul')
+
+        # Get the current time in UTC
         now_utc = timezone.now()
+
+        # Convert UTC time to the desired timezone
         now_local = now_utc.astimezone(local_timezone)
 
-        if not self.pk:
-            self.created_at = local_timezone.localize(now_local).astimezone(pytz.UTC)
-        self.updated_at = local_timezone.localize(now_local).astimezone(pytz.UTC)
+        if not self.pk:  # Only set created_at on creation
+            # No need to localize already timezone-aware datetime
+            self.created_at = now_utc
+        self.updated_at = now_utc
+
         super().save(*args, **kwargs)
     

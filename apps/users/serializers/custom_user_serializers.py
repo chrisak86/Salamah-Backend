@@ -6,7 +6,7 @@ class CustomUserSerializers(serializers.ModelSerializer):
     police_station = serializers.SerializerMethodField()
     class Meta:
         model=CustomUser
-        fields=['id','email','first_name','password', 'civil_id', 'gender', 'user_type', 'is_approved', 'is_online', 'police_station']
+        fields=['id','email','first_name','password', 'civil_id', 'gender', 'user_type', 'is_approved', 'is_online', 'police_station', 'created_at', 'updated_at']
         extra_kwargs={'password': {"write_only": True,"required": True},
                        'email': {'required': True},
                         }

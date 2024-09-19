@@ -8,6 +8,7 @@ from drf_spectacular.views import extend_schema
 from django.conf import settings
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from ..models import CustomUser
+from django.db.models import Q
 
 
 class TicketView(APIView):
@@ -103,7 +104,13 @@ class GetTicket(APIView):
                 'success': False
             })
         
+        # tickets = Ticket.objects.filter(
+        #     user_id=user,
+        #     completed=False,
+        #     type_choice=data
+        # )
         tickets = Ticket.objects.filter(
+            Q(cancel=False) | Q(cancel__isnull=True),
             user_id=user,
             completed=False,
             type_choice=data
@@ -116,6 +123,7 @@ class GetTicket(APIView):
             'data': serializer.data, 
             'success': True
         })
+    
 class PoliceTicket(APIView):
     serializer_class = TicketSerializer
     permission_classes = [IsAuthenticated]

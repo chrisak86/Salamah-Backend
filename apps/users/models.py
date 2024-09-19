@@ -24,7 +24,8 @@ class CustomUser(AbstractUser):
     user_type = models.CharField(max_length=10, choices=TYPE_CHOICES, default="user")
     is_approved=models.BooleanField(default=False) 
     is_online=models.BooleanField(default=False)  
-    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
     USERNAME_FIELD="email"
@@ -63,6 +64,7 @@ class Ticket(models.Model):
     hospital_name=models.CharField(max_length=50, blank=True, null=True)
     police_station_id=models.ForeignKey(PoliceStation, on_delete=models.CASCADE,blank=True, null=True)
     attend_id=models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='POLICE', blank=True, null=True)
+    officer_name = models.CharField(max_length=50, blank=True, null=True)
     user_lat=models.FloatField()
     user_long=models.FloatField()
     dest_lat=models.FloatField()

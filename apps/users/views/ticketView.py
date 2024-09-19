@@ -104,17 +104,17 @@ class GetTicket(APIView):
                 'success': False
             })
         
-        # tickets = Ticket.objects.filter(
-        #     user_id=user,
-        #     completed=False,
-        #     type_choice=data
-        # )
         tickets = Ticket.objects.filter(
-            Q(cancel=False) | Q(cancel__isnull=True),
             user_id=user,
             completed=False,
             type_choice=data
         )
+        # tickets = Ticket.objects.filter(
+        #     Q(cancel=False) | Q(cancel__isnull=True),
+        #     user_id=user,
+        #     completed=False,
+        #     type_choice=data
+        # )
         
         serializer = TicketSerializer(tickets, many=True)
         
@@ -135,7 +135,8 @@ class PoliceTicket(APIView):
         user_id=user.id
         ticket=Ticket.objects.filter(
             attend_id=user_id,
-            completed=False
+            completed=False,
+            cancel = None,
         )
         
         if ticket:
@@ -152,7 +153,7 @@ class PoliceTicket(APIView):
         police_stations = PoliceOfficerPoliceStaion.objects.filter(user=user_profile).values_list('police_station_id', flat=True)
 
         if police_stations.exists():
-            tickets = Ticket.objects.filter(police_station_id__in=police_stations, completed=False)
+            tickets = Ticket.objects.filter(police_station_id__in=police_stations, completed=False, cancel = None)
             
             if tickets.exists():
                 serializer = TicketSerializer(tickets, many=True)

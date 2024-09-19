@@ -72,7 +72,7 @@ class Ticket(models.Model):
     cancel = models.BooleanField(null=True, blank=True)
     reason = models.CharField(max_length=2000, null=True, blank=True)
     gender = models.CharField(max_length=10, null=True, blank=True)
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 class ModelLogs(models.Model):
